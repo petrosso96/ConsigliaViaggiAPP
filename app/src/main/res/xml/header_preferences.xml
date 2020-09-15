@@ -1,9 +1,9 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Preference
-        app:fragment="com.example.consigliaviaggi.SettingsActivity$MessagesFragment"
-        app:icon="@drawable/messages"
-        app:key="messages_header"
+        app:fragment="com.example.consigliaviaggi.settings.SettingsActivity$InformazioniFragment"
+        app:icon="@android:drawable/ic_menu_preferences"
+        app:key="informazioni_header"
         app:title="@string/messages_header" />
 
     <Preference
