@@ -9,7 +9,7 @@
         android:id="@+id/scrollView2"
         android:layout_width="392dp"
         android:layout_height="560dp"
-        android:layout_marginTop="224dp"
+        android:layout_marginTop="150dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,39 +24,136 @@
 
             <EditText
                 android:id="@+id/nome_registrazione"
+                android:layout_width="377dp"
+                android:layout_height="87dp"
+                android:layout_gravity="center"
+                android:hint="Nome"
+                android:inputType="text"
                 android:paddingTop="20dp"
+                android:paddingBottom="20dp" />
+
+            <EditText
+                android:id="@+id/cognome_registrazione"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="Nome" />
+                android:hint="Cognome"
+                android:inputType="text"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp" />
+
+
+
+
+
+            <TextView
+                android:id="@+id/sesso_label_registrazione"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sesso:"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/sesso_bottoni"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/sesso_maschio_registrazione"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Maschio" />
+
+                <RadioButton
+                    android:id="@+id/sesso_femmina_registrazione"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Femmina" />
+
+                <RadioButton
+                    android:id="@+id/sesso_altro_registrazione"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Altro" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/città_registrazione"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="50dp"
+                android:paddingBottom="20dp"
+                android:hint="Città di provenienza"
+                android:textSize="18sp" />
+            <EditText
+                android:id="@+id/nome_utente_registrazione"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="50dp"
+                android:paddingBottom="20dp"
+                android:hint="Nome Utente"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/indirizzo_email_registrazione"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Indirizzo email"
+                android:inputType="textWebEmailAddress"
+                android:paddingTop="50dp"
+                android:paddingBottom="20dp"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/password_registrazione"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingTop="50dp"
+                android:paddingBottom="20dp"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/conferma_password_registrazione"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Conferma Password"
+                android:inputType="textPassword"
+                android:paddingTop="50dp"
+                android:paddingBottom="20dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/data_label_registrazione"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:text="Data di nascita:"
+                android:textSize="18sp" />
+            <DatePicker
+                android:id="@+id/dataNascita_registrazione"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false"/>
+
+            <Button
+                android:id="@+id/salva_registrazione"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:layout_gravity="bottom"
+                android:text="Registrati" />
 
             <View
                 android:id="@+id/divider"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="10dp"
                 android:background="?android:attr/listDivider" />
-
-            <EditText
-                android:id="@+id/cognome_registrazione"
-                android:paddingTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:hint="Cognome" />
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-            <DatePicker
-                android:id="@+id/data_registrazione"
-                android:layout_width="159dp"
-                android:layout_height="112dp"
-                android:layout_gravity="left"
-                android:hint="Data di nascita"
-                android:paddingTop="30dp" />
 
 
         </LinearLayout>
@@ -75,4 +172,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.465" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
