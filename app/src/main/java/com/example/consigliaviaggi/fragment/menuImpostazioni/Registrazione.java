@@ -45,7 +45,7 @@ public class Registrazione extends Fragment {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private View view;
-    private String sesso;
+    private Gender sesso;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +71,27 @@ public class Registrazione extends Fragment {
             }
         });
 
+        RadioGroup gruppoBottoniSesso = view.findViewById(R.id.sesso_bottoni);
+
+        gruppoBottoniSesso.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                switch(checkedId)
+                {
+                    case R.id.sesso_maschio_registrazione:
+                        sesso=Gender.maschio;
+                        break;
+                    case R.id.sesso_femmina_registrazione:
+                        sesso =Gender.femmina;
+                        break;
+                    case R.id.sesso_altro_registrazione:
+                        sesso = Gender.altro;
+                        break;
+                }
+            }
+        });
+
 
 
         return view;
@@ -91,7 +112,6 @@ public class Registrazione extends Fragment {
         private String password;
         private String city;
         private String indirizzoEmail;
-        private Gender sesso;
         private String confermaPassword;
 
 
@@ -126,26 +146,7 @@ public class Registrazione extends Fragment {
             EditText confermaPassword = view.findViewById(R.id.conferma_password_registrazione);
             this.confermaPassword = confermaPassword.getText().toString();
 
-            RadioGroup gruppoBottoniSesso = view.findViewById(R.id.sesso_bottoni);
 
-            gruppoBottoniSesso.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-                    switch(checkedId)
-                    {
-                        case R.id.sesso_maschio_registrazione:
-                            sesso=Gender.maschio;
-                            break;
-                        case R.id.sesso_femmina_registrazione:
-                            sesso =Gender.femmina;
-                            break;
-                        case R.id.sesso_altro_registrazione:
-                            sesso = Gender.altro;
-                            break;
-                    }
-                }
-            });
         }
 
 
