@@ -1,5 +1,7 @@
 package com.example.consigliaviaggi.fragment;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.consigliaviaggi.R;
+import com.example.consigliaviaggi.fragment.menuImpostazioni.InformazioniPersonali;
 import com.example.consigliaviaggi.fragment.menuImpostazioni.LineeGuida;
 import com.example.consigliaviaggi.fragment.menuImpostazioni.Login;
 import com.example.consigliaviaggi.fragment.menuImpostazioni.Registrazione;
@@ -15,145 +18,132 @@ import com.example.consigliaviaggi.fragment.menuImpostazioni.Registrazione;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
+import androidx.preference.PreferenceScreen;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class SettingFragment extends Fragment {
+public class SettingFragment extends PreferenceFragmentCompat {
 
 
-    TextView login;
-    TextView registrazione;
-    TextView lineeGuida;
-    View view;
+
+    private View view;
 
     public SettingFragment() {
 
 
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        SharedPreferences sp = getActivity().getSharedPreferences("login", MODE_PRIVATE);
-
-        if(sp.getBoolean("isLogged", false)){
-
-             view = inflater.inflate(R.layout.fragment_setting, container, false);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
 
 
-            login = view.findViewById(R.id.login_button_setting);
-            registrazione =  view.findViewById(R.id.registrazione_button_setting);
-            lineeGuida = view.findViewById(R.id.linee_guida_button_setting);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences( this.getContext());
 
-            login.setOnClickListener(new View.OnClickListener() {
+        boolean isLogged = sp.getBoolean("isLogged",false);
+
+
+
+        if(isLogged) {
+
+            setPreferencesFromResource(R.xml.settings_is_logged, rootKey);
+
+            Preference voceInformazioniPersonaliListener = findPreference("informazioni_personali");
+            Preference voceLogoutListener = findPreference("logout");
+
+            voceInformazioniPersonaliListener.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
-                public void onClick(View view) {
+                public boolean onPreferenceClick(Preference preference) {
+
+
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.fragment_container,new Login())
+                            .replace(R.id.fragment_container,new InformazioniPersonali())
                             .commit();
 
+                    return true;
                 }
             });
 
-            registrazione.setOnClickListener(new View.OnClickListener() {
+
+            voceLogoutListener.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
-                public void onClick(View view) {
+                public boolean onPreferenceClick(Preference preference) {
+
+                    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences( getContext());
+                    sp.edit().putBoolean("isLogged",false).apply();
+
+
+                    AccountManager accountManager = AccountManager.get(getContext());
+                    Account[] accounts = accountManager.getAccounts();
+
+                    accountManager.removeAccountExplicitly(accounts[0]);
+
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragment_container,new HomeFragment())
+                            .commit();
+
+
+                    return true;
+                }
+            });
+
+        }else {
+
+            setPreferencesFromResource(R.xml.settings, rootKey);
+
+            Preference voceLoginListener = findPreference("login");
+            Preference voceRegistratiListener = findPreference("registrati");
+
+
+          voceLoginListener.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container,new Login())
+                        .commit();
+
+                return true;
+            }
+           });
+
+            voceRegistratiListener.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.fragment_container,new Registrazione())
                             .commit();
 
+                    return true;
                 }
             });
-
-            lineeGuida.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.fragment_container,new LineeGuida())
-                            .commit();
-
-                }
-            });
-
-        }else{
-
-            view = inflater.inflate(R.layout.fragment_setting_logged, container, false);
-
-
-            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list_settings_is_logged);
-
-
-            recyclerView.setHasFixedSize(true);
-
-            // use a linear layout manager
-            LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
-            recyclerView.setLayoutManager(layoutManager);
-
-            // specify an adapter (see also next example)
-
-
-
-
         }
 
+        Preference voceLineeGuidaListener = findPreference("linee_guida");
+
+        voceLineeGuidaListener.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
 
 
+                getActivity().getSupportFragmentManager().
+                        beginTransaction().
+                        replace(R.id.fragment_container,new LineeGuida()).
+                        commit();
 
-
-
-        return view;
-
-
-    }
-
-
-    private static class AdapterListSettingIsLogged extends  RecyclerView.Adapter<AdapterListSettingIsLogged.MyViewHolder> {
-
-        private String[] mDataset;
-
-        @NonNull
-        @Override
-        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return null;
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return 0;
-        }
-
-        // Provide a reference to the views for each data item
-        // Complex data items may need more than one view per item, and
-        // you provide access to all the views for a data item in a view holder
-         static class MyViewHolder extends RecyclerView.ViewHolder {
-            // each data item is just a string in this case
-            public TextView textView;
-            public MyViewHolder(TextView v) {
-                super(v);
-                textView = v;
+                return true;
             }
-        }
-
-        public AdapterListSettingIsLogged(String[] myDataset) {
-            mDataset = myDataset;
-        }
-
-
+        });
 
     }
-
-
-
 
 }

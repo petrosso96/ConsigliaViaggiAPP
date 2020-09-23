@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="@string/key_login"
+        android:title="Login"
+        android:summary="effettua il login"
+
+        />
+
+    <Preference
+        android:key="@string/key_registrazione"
+        android:title="Registrazione"
+        android:summary="effettua registrazione"
+        />
+    <Preference
+        android:key="@string/key_linee_guida"
+        android:title="Linee guida"
+        android:summary="visualizza le linee guida della piattagorma"
+        />
+
+</PreferenceScreen>
