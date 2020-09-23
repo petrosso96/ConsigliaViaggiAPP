@@ -54,6 +54,18 @@
     </string>
 
 
+    <string name="key_informazioni_personali">informazioni_personali</string>
+    <string name="key_linee_guida">linee_guida</string>
+    <string name="key_logout">logout</string>
+
+
+    <string name="key_login">login</string>
+    <string name="key_registrazione">registrati</string>
+
+
+
+
+
 
 
 </resources>

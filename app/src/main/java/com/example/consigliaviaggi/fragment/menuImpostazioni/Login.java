@@ -2,10 +2,12 @@ package com.example.consigliaviaggi.fragment.menuImpostazioni;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -155,6 +157,10 @@ public class Login extends Fragment {
 
                  final Account account = new Account(nomeUtente, "com.consigliaviaggi");
                  accountManager.addAccountExplicitly(account, password, null);
+
+                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences( getContext());
+
+                 sp.edit().putBoolean("isLogged",true).apply();
 
                  getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 

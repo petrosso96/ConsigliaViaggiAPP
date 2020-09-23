@@ -2,6 +2,7 @@ package com.example.consigliaviaggi.fragment.menuImpostazioni;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,11 +38,12 @@ import java.util.Collections;
 import java.util.Date;
 
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 
 
 public class Registrazione extends Fragment {
 
-    protected static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = MainActivity.class.getSimpleName();
     private View view;
     private String sesso;
 
@@ -208,6 +210,11 @@ public class Registrazione extends Fragment {
 
                 final Account account = new Account(nomeUtente, "com.consigliaviaggi");
                 accountManager.addAccountExplicitly(account, password, null);
+
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences( getContext());
+
+                 sp.edit().putBoolean("isLogged",true).apply();
+
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 

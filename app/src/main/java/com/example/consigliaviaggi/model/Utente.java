@@ -1,5 +1,6 @@
 package com.example.consigliaviaggi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
@@ -29,6 +30,12 @@ public class Utente {
     private String city;
     private String indirizzoEmail;
     private Gender sesso;
+    private Rank rank;
+    private MostraCome mostraCome;
+    @JsonProperty("active")
+    private boolean isActive;
+    @JsonProperty("utente")
+    private String utente;
 
 
     @JsonProperty("nome")
@@ -39,14 +46,17 @@ public class Utente {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
     @JsonProperty("cognome")
-    public String getCongome() {
+    public String getCognome() {
         return cognome;
     }
 
-    public void setCongome(String congome) {
-        this.cognome = congome;
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
     }
+
+
 
     @JsonProperty("nomeUtente")
     public String getNomeUtente() {
@@ -99,6 +109,24 @@ public class Utente {
 
     public void setSesso(Gender sesso) {
         this.sesso = sesso;
+    }
+
+    @JsonProperty("rank")
+    public Rank getRank() {
+        return rank;
+    }
+
+    public void setRank(Rank rank) {
+        this.rank = rank;
+    }
+
+    @JsonProperty("mostraCome")
+    public MostraCome getMostraCome() {
+        return mostraCome;
+    }
+
+    public void setMostraCome(MostraCome mostraCome) {
+        this.mostraCome = mostraCome;
     }
 
     @Override

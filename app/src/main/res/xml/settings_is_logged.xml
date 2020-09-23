@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="@string/key_informazioni_personali"
+        android:title="Informazioni Personali"
+        android:summary="visualizza le informazioni del tuo account"/>
+
+    <Preference
+        android:key="@string/key_linee_guida"
+        android:title="Linee guida"
+        android:summary="visualizza le linee guida della piattaforma"/>
+
+    <Preference
+        android:key="@string/key_logout"
+        android:title="Logout"
+        android:summary="esci dal tuo account"/>
+
+
+</PreferenceScreen>
