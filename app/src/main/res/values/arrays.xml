@@ -9,4 +9,52 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+
+    <string-array name="range_prezzo">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="label_range_prezzo">
+        <item>Gratis</item>
+        <item>Decisamente economica</item>
+        <item>Abbastanza economica</item>
+        <item>Alla portata di tutti</item>
+        <item>Abbastanza costosa</item>
+        <item>Molto costosa</item>
+    </string-array>
+
+
+    <string-array name="categoria_attività">
+        <item>hotel</item>
+        <item>museo</item>
+        <item>discoteca</item>
+        <item> badandbreakfast</item>
+        <item>tour</item>
+        <item>ristorante</item>
+        <item>negozio</item>
+        <item>palestra</item>
+        <item>parcotematico</item>
+        <item>agriturismo</item>
+        <item>bar</item>
+    </string-array>
+
+    <string-array name="categoria_luoghi">
+        <item>piazza</item>
+        <item>spiaggia</item>
+        <item>riservanaturale</item>
+        <item> borgo</item>
+        <item>luogodiculto</item>
+        <item>lago</item>
+        <item>parconaturale</item>
+        <item>monumentostorico</item>
+        <item>stazioneferroviaria</item>
+
+    </string-array>
+
+
 </resources>

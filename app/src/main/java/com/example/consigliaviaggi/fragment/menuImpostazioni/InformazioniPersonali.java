@@ -76,7 +76,7 @@ public class InformazioniPersonali extends Fragment {
 
 
 
-    class InformazioniPersonaliREST extends AsyncTask<Void,Void,Utente>{
+    private class InformazioniPersonaliREST extends AsyncTask<Void,Void,Utente>{
 
 
         @Override
@@ -120,7 +120,6 @@ public class InformazioniPersonali extends Fragment {
                 Log.d(TAG, url);
 
                 ResponseEntity<Utente> responseEntity = restTemplate.exchange(url, HttpMethod.GET,requestEntity,Utente.class);
-                System.out.println(responseEntity.getBody());
 
                 return responseEntity.getBody();
 
