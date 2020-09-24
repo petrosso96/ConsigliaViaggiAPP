@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <EditTextPreference
+        android:key="città_field"
+        android:title="Città"
+        app:useSimpleSummaryProvider="true"
+        android:icon="@drawable/ic_baseline_location_city_24"/>
+
+    <EditTextPreference
+        android:key="distanza_field"
+        android:title="Distanza"
+        app:useSimpleSummaryProvider="true"
+        android:icon="@drawable/ic_baseline_world_24"/>
+
+    <ListPreference
+        android:key="prezzo_value"
+        android:title="Range di prezzo"
+        app:useSimpleSummaryProvider="true"
+        android:icon="@drawable/ic_baseline_euro_symbol_24"
+        android:entryValues="@array/range_prezzo"
+        android:entries="@array/label_range_prezzo"/>
+
+    <ListPreference
+        android:key="categoria_attività_value"
+        android:title="Attività"
+        app:useSimpleSummaryProvider="true"
+        android:icon="@drawable/ic_baseline_payment_24"
+        android:entryValues="@array/categoria_attività"
+        android:entries="@array/categoria_attività"/>
+
+    <ListPreference
+        android:key="categoria_luoghi_value"
+        android:title="Luoghi"
+        app:useSimpleSummaryProvider="true"
+        android:icon="@drawable/ic_baseline_place_24"
+        android:entryValues="@array/categoria_luoghi"
+        android:entries="@array/categoria_luoghi"/>
+
+    <Preference
+        android:key="conferma"
+        android:title="Conferma"
+        android:summary="conferma la scelta dei filtri"
+        android:icon="@drawable/ic_baseline_thumb_up_24"/>
+
+
+</PreferenceScreen>
