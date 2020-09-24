@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+    android:id="@+id/più_recenti"
+    android:title="Più recenti"/>
+
+    <item
+        android:id="@+id/meno_recenti"
+        android:title="Meno recenti"/>
+
+    <item
+        android:id="@+id/più_apprezzate"
+        android:title="Più apprezzate"/>
+
+    <item
+        android:id="@+id/meno_apprezzate"
+        android:title="Meno apprezzate"/>
+
+</menu>

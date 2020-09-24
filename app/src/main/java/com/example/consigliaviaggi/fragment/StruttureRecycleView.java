@@ -1,6 +1,5 @@
 package com.example.consigliaviaggi.fragment;
 
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,18 +8,14 @@ import android.widget.TextView;
 
 import com.example.consigliaviaggi.R;
 import com.example.consigliaviaggi.fragment.searchModel.CardStruttura;
-import com.example.consigliaviaggi.model.Struttura;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.core.widget.TextViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static java.security.AccessController.getContext;
-
-public class AdapterRecycleView extends RecyclerView.Adapter<AdapterRecycleView.StrutturaViewHolder> {
+public class StruttureRecycleView extends RecyclerView.Adapter<StruttureRecycleView.StrutturaViewHolder> {
 
     private ArrayList<CardStruttura> listaStrutture;
     private OnItemClickListener clickListener;
@@ -33,7 +28,7 @@ public class AdapterRecycleView extends RecyclerView.Adapter<AdapterRecycleView.
         clickListener = listener;
     }
 
-    public AdapterRecycleView(ArrayList<CardStruttura> strutture){
+    public StruttureRecycleView(ArrayList<CardStruttura> strutture){
         this.listaStrutture = strutture;
     }
 
@@ -69,7 +64,7 @@ public class AdapterRecycleView extends RecyclerView.Adapter<AdapterRecycleView.
             super(itemView);
             thumbStruttura = itemView.findViewById(R.id.thumbnail_struttura);
             nomeStruttura = itemView.findViewById(R.id.nome_struttura);
-            descrizioneStruttura = itemView.findViewById(R.id.descrizione_struttura);
+            descrizioneStruttura = itemView.findViewById(R.id.descrizione_struttura_contenuto);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

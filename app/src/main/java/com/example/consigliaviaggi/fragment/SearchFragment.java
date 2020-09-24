@@ -1,10 +1,7 @@
 package com.example.consigliaviaggi.fragment;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -17,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.consigliaviaggi.MainActivity;
@@ -26,30 +22,22 @@ import com.example.consigliaviaggi.fragment.filtri.ListaFiltriFragment;
 import com.example.consigliaviaggi.fragment.searchModel.CardStruttura;
 import com.example.consigliaviaggi.model.Filtri;
 import com.example.consigliaviaggi.model.Struttura;
-import com.example.consigliaviaggi.model.Utente;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -75,7 +63,7 @@ public class SearchFragment extends Fragment {
     private int MIN_DISTANCE_CHANGE_FOR_UPDATES =100;
 
     private RecyclerView recyclerView;
-    private AdapterRecycleView mAdapter;
+    private StruttureRecycleView mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     ArrayList<CardStruttura> elencoStrutture;
 
@@ -247,7 +235,7 @@ public class SearchFragment extends Fragment {
             requestHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 
-            System.out.println(filtri);
+
             HttpEntity requestEntity = new HttpEntity(filtri, requestHeaders);
 
             try {
@@ -279,7 +267,6 @@ public class SearchFragment extends Fragment {
 
                 for (Struttura struttura: arrayStrutture ) {
 
-
                     cardCorrente = new CardStruttura(struttura.getId(),struttura.getFoto(),struttura.getNome(),struttura.getDescrizione());
                     elencoStrutture.add(cardCorrente);
 
@@ -297,12 +284,12 @@ public class SearchFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view_lista_strutture);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
-        mAdapter = new AdapterRecycleView(elencoStrutture);
+        mAdapter = new StruttureRecycleView(elencoStrutture);
 
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
 
-        mAdapter.setOnItemClickListener(new AdapterRecycleView.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new StruttureRecycleView.OnItemClickListener() {
             @Override
             public void onIntemClick(int position) {
 
