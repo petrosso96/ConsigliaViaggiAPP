@@ -20,6 +20,7 @@ import com.example.consigliaviaggi.MainActivity;
 import com.example.consigliaviaggi.R;
 import com.example.consigliaviaggi.fragment.filtri.ListaFiltriFragment;
 import com.example.consigliaviaggi.fragment.searchModel.CardStruttura;
+import com.example.consigliaviaggi.fragment.searchModel.StruttureRecycleView;
 import com.example.consigliaviaggi.model.Filtri;
 import com.example.consigliaviaggi.model.Struttura;
 
@@ -294,7 +295,10 @@ public class SearchFragment extends Fragment {
             public void onIntemClick(int position) {
 
                 CardStruttura strutturaSelezionata = elencoStrutture.get(position);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new StrutturaFragment(strutturaSelezionata.getId())).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new StrutturaFragment(strutturaSelezionata.getId(),
+                                                                                                                                   strutturaSelezionata.getNomeStruttura(),
+                                                                                                                                    strutturaSelezionata.getDescrizioneStruttura(),
+                                                                                                                                    strutturaSelezionata.getImmagine())).commit();
             }
         });
     }

@@ -9,7 +9,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_margin="4dp">
+        android:layout_margin="4dp"
+        android:background="@color/colorCardRecensione">
 
 
         <RatingBar
@@ -95,6 +96,19 @@
             android:layout_marginTop="29dp"
             android:textSize="18sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/rank_recensore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ratingBar"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="185dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginBottom="17dp"
+            android:layout_toEndOf="@+id/nome_autore_recensione" />
 
     </RelativeLayout>
 

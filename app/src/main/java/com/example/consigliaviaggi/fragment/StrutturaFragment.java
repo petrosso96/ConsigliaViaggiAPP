@@ -1,9 +1,13 @@
 package com.example.consigliaviaggi.fragment;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,16 +17,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.consigliaviaggi.MainActivity;
 import com.example.consigliaviaggi.R;
-import com.example.consigliaviaggi.fragment.recensioneModel.CardRecensione;
-import com.example.consigliaviaggi.model.Filtri;
+import com.example.consigliaviaggi.WrapperCredenzialiURL;
+import com.example.consigliaviaggi.fragment.Struttura.AggiungiRecensioneFragment;
+import com.example.consigliaviaggi.fragment.strutturaModel.CardRecensione;
+import com.example.consigliaviaggi.fragment.strutturaModel.RecensioniRecycleView;
 import com.example.consigliaviaggi.model.MostraCome;
 import com.example.consigliaviaggi.model.Rank;
 import com.example.consigliaviaggi.model.Recensione;
-import com.example.consigliaviaggi.model.Struttura;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -34,25 +44,32 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 
 public class StrutturaFragment extends Fragment {
 
     private String idStruttura;
+    private String nome;
+    private String descrizione;
+    private String immagine;
     private View view;
     private static final String TAG = MainActivity.class.getSimpleName();
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<CardRecensione> listaRecensioni;
+    private ProgressBar progressBar;
+    private StrutturaFragment riferimentoPaginaStruttura = this;
 
     public StrutturaFragment() {
         // Required empty public constructor
     }
 
-    public StrutturaFragment(String idStruttura){
+    public StrutturaFragment(String idStruttura, String nomeStruttura, String descrizioneStruttura, String immagineStruttura){
+        nome = nomeStruttura;
+        descrizione = descrizioneStruttura;
+        immagine = immagineStruttura;
         this.idStruttura=idStruttura;
     }
 
@@ -69,8 +86,46 @@ public class StrutturaFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_struttura, container, false);
 
-        Button bottoneOrdinaPer = view.findViewById(R.id.button_ordina_per);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences( this.getContext());
+        boolean isLogged = sp.getBoolean("isLogged",false);
 
+        FloatingActionButton bottoneAggiungiRecensione = view.findViewById(R.id.bottone_aggiungi_recensione);
+
+        if(!isLogged) {
+
+            bottoneAggiungiRecensione.setEnabled(false);
+
+        }
+        else{
+
+            bottoneAggiungiRecensione.setEnabled(true);
+            bottoneAggiungiRecensione.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragment_container,new AggiungiRecensioneFragment(idStruttura,riferimentoPaginaStruttura))
+                            .commit();
+
+
+                }
+            });
+        }
+
+        progressBar = view.findViewById(R.id.progressBar);
+
+        ImageView imageViewImmagineStruttura = view.findViewById(R.id.immagine_struttura);
+        Picasso.get().load(immagine).into(imageViewImmagineStruttura);
+
+
+        TextView textViewNomeStruttura = view.findViewById(R.id.nome_struttura);
+        textViewNomeStruttura.setText(nome);
+
+        TextView textViewDescrizioneStruttura = view.findViewById(R.id.descrizione_struttura);
+        textViewDescrizioneStruttura.setText(descrizione);
+
+        Button bottoneOrdinaPer = view.findViewById(R.id.button_ordina_per);
         bottoneOrdinaPer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,12 +138,12 @@ public class StrutturaFragment extends Fragment {
             }
         });
 
-        listaRecensioni = new ArrayList<CardRecensione>();
+
 
         OrdinaRecensioniREST ordinaRecensioniREST = new OrdinaRecensioniREST("recenti");
         ordinaRecensioniREST.execute();
 
-        buildListaRecensioni(listaRecensioni);
+
 
 
       return view;
@@ -99,25 +154,47 @@ public class StrutturaFragment extends Fragment {
         recyclerView = view.findViewById(R.id.lista_recensioni);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
-        mAdapter = new RecensioniRecycleView(listaRecensioni);
+        mAdapter = new RecensioniRecycleView(listaRecensioni,new WrapperCredenzialiURL(getString(R.string.base_uri),getNomeUtente(),getPasswordUtente()));
 
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
 
 
+    }
+
+
+    private String getNomeUtente(){
+        AccountManager accountManager = AccountManager.get(getContext());
+        Account[] accounts = accountManager.getAccounts();
+        return accounts[0].name;
+
+
+    }
+
+    private String getPasswordUtente(){
+        AccountManager accountManager = AccountManager.get(getContext());
+        Account[] accounts = accountManager.getAccounts();
+        return accountManager.getPassword(accounts[0]);
 
     }
 
 
 
-     class OrdinaRecensioniREST extends AsyncTask<Void, Void, Recensione[]> {
+     class OrdinaRecensioniREST extends AsyncTask<Void, Integer, Recensione[]> {
 
 
-         String criterioDiOrdinamento;
+         private String criterioDiOrdinamento;
+
 
          public OrdinaRecensioniREST(String criterio) {
 
              this.criterioDiOrdinamento = criterio;
+
+         }
+
+         @Override
+         protected void onPreExecute() {
+             progressBar.setProgress(0);
          }
 
          @Override
@@ -150,26 +227,43 @@ public class StrutturaFragment extends Fragment {
 
          }
 
+         @Override
+         protected void onProgressUpdate(Integer... values) {
+             Log.d("Progress", String.valueOf(values[0]));
+             progressBar.setProgress(values[0]);
+         }
+
 
          @Override
          protected void onPostExecute(Recensione[] arrayRecensioni) {
 
+             int count = 0;
+
+             listaRecensioni = new ArrayList<>();
+
              for (Recensione recensione:arrayRecensioni) {
 
+                 count++;
 
+                 publishProgress(count);
                  String nomeRecensore = getNomeRecensore(recensione);
                  String rankRecensore = getRankRecensore(recensione);
                  Integer likesNumber = recensione.getLikes();
                  Integer dislikesNumber = recensione.getDislikes();
 
 
+
                  listaRecensioni.add(
                          new CardRecensione(recensione.getVoto(), nomeRecensore, rankRecensore,
-                                            recensione.getDescrizione(), likesNumber.toString(), dislikesNumber.toString()
+                                            recensione.getDescrizione(), likesNumber.toString(), dislikesNumber.toString(),recensione.getId()
                          )
                  );
 
              }
+
+             progressBar.setVisibility(View.GONE);
+
+             buildListaRecensioni(listaRecensioni);
          }
 
          private String getNomeRecensore(Recensione recensione){
@@ -238,7 +332,12 @@ public class StrutturaFragment extends Fragment {
                     ordinaRecensioniREST = new OrdinaRecensioniREST("recenti");
                     break;
             }
+
+
             ordinaRecensioniREST.execute();
+
+
+
 
             return true;
         }

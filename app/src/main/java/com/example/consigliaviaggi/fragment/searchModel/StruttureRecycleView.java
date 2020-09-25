@@ -1,4 +1,4 @@
-package com.example.consigliaviaggi.fragment;
+package com.example.consigliaviaggi.fragment.searchModel;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.consigliaviaggi.R;
-import com.example.consigliaviaggi.fragment.searchModel.CardStruttura;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

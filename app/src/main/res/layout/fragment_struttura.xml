@@ -7,8 +7,9 @@
 
     <ImageView
         android:id="@+id/immagine_struttura"
-        android:layout_width="393dp"
-        android:layout_height="148dp"
+        android:layout_width="438dp"
+        android:layout_height="146dp"
+        android:background="@color/cardview_shadow_start_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -43,11 +44,10 @@
         app:layout_constraintTop_toBottomOf="@+id/nome_struttura" />
 
     <TextView
-        android:id="@+id/descrizione_struttura_contenuto"
-        android:layout_width="297dp"
-        android:layout_height="67dp"
+        android:id="@+id/descrizione_struttura"
+        android:layout_width="301dp"
+        android:layout_height="59dp"
         android:layout_marginTop="28dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.416"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,38 +57,63 @@
         android:id="@+id/recensioni_struttura_label"
         android:layout_width="108dp"
         android:layout_height="37dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="52dp"
         android:text="Recensioni:"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.134"
+        app:layout_constraintHorizontal_bias="0.164"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descrizione_struttura_contenuto" />
+        app:layout_constraintTop_toBottomOf="@+id/descrizione_struttura" />
 
     <Button
         android:id="@+id/button_ordina_per"
         android:layout_width="114dp"
         android:layout_height="37dp"
         android:layout_marginStart="92dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="52dp"
         android:text="Ordina per:"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/recensioni_struttura_label"
-        app:layout_constraintTop_toBottomOf="@+id/descrizione_struttura_contenuto" />
+        app:layout_constraintTop_toBottomOf="@+id/descrizione_struttura" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="144dp"
+        android:progress="40"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lista_recensioni"
-        android:layout_width="396dp"
-        android:layout_height="330dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="435dp"
+        android:layout_height="243dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recensioni_struttura_label" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/bottone_aggiungi_recensione"
+        android:layout_width="88dp"
+        android:layout_height="94dp"
+        android:layout_marginBottom="28dp"
+        android:clickable="true"
+        android:foreground="@drawable/ic_baseline_add_circle_24"
+        android:foregroundTint="#FFFFFF"
+        android:tint="#CF4141"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.895"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

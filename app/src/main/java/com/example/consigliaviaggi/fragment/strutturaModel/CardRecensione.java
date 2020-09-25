@@ -1,8 +1,4 @@
-package com.example.consigliaviaggi.fragment.recensioneModel;
-
-import android.widget.ImageButton;
-import android.widget.RatingBar;
-import android.widget.TextView;
+package com.example.consigliaviaggi.fragment.strutturaModel;
 
 public class CardRecensione {
 
@@ -12,16 +8,25 @@ public class CardRecensione {
     private String descrizioneRecensione;
     private String likeNumber;
     private String dislikeNumber;
+    private long recensioneID;
 
-    public CardRecensione(int votoRecensione, String nomeAutoreRecensione, String rankAutoreRecensione, String descrizioneRecensione, String likeNumber, String dislikeNumber) {
+    public CardRecensione(int votoRecensione, String nomeAutoreRecensione, String rankAutoreRecensione, String descrizioneRecensione, String likeNumber, String dislikeNumber,long recensioneID) {
         this.votoRecensione = votoRecensione;
         this.nomeAutoreRecensione = nomeAutoreRecensione;
         this.rankAutoreRecensione = rankAutoreRecensione;
         this.descrizioneRecensione = descrizioneRecensione;
         this.likeNumber = likeNumber;
         this.dislikeNumber = dislikeNumber;
+        this.recensioneID = recensioneID;
     }
 
+    public long getRecensioneID() {
+        return recensioneID;
+    }
+
+    public void setRecensioneID(long recensioneID) {
+        this.recensioneID = recensioneID;
+    }
 
     public int getVotoRecensione() {
         return votoRecensione;
